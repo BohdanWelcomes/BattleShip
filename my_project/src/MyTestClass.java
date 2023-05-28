@@ -10,7 +10,7 @@ public class MyTestClass {
         int col = r % 10;
 
 
-        
+
         System.out.println("row is " + row + ", col is " + col);
     }
 }
