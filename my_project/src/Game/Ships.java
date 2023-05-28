@@ -7,7 +7,7 @@ abstract class Ships {
     String[] shipsLengthOfTwo = new String[6];
     String[] shipsLengthOfOne = new String[4];
 
-    abstract void inputShipsPlacementForFirstGamer(String... ship);
 
-    abstract void inputShipsPlacementForSecondGamer(String... ship);
+
+
 }
