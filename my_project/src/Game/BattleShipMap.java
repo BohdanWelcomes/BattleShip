@@ -7,24 +7,24 @@ import java.util.Scanner;
 public class BattleShipMap extends Ships {
 
 
-    private static int[][] shipsMapFirstGamer = new int[10][10];
-    private static int[][] shotsMapFirstGamer = new int[10][10];
-    private static int[][] ShipsMapSecondGamer = new int[10][10];
-    private static int[][] shotsMapSecondGamer = new int[10][10];
+    private static char[][] shipsMapFirstGamer = new char[10][10];
+    private static char[][] shotsMapFirstGamer = new char[10][10];
+    private static char[][] shipsMapSecondGamer = new char[10][10];
+    private static char[][] shotsMapSecondGamer = new char[10][10];
 
-    public int[][] getShipsMapFirstGamer() {
+    public char[][] getShipsMapFirstGamer() {
         return shipsMapFirstGamer;
     }
 
-    public int[][] getShotsMapFirstGamer() {
+    public char[][] getShotsMapFirstGamer() {
         return shotsMapFirstGamer;
     }
 
-    public int[][] getShipsMapSecondGamer() {
-        return ShipsMapSecondGamer;
+    public char[][] getShipsMapSecondGamer() {
+        return shipsMapSecondGamer;
     }
 
-    public int[][] getShotsMapSecondGamer() {
+    public char[][] getShotsMapSecondGamer() {
         return shotsMapSecondGamer;
     }
 
@@ -43,21 +43,44 @@ public class BattleShipMap extends Ships {
         System.out.println();
     }
 
-    public void fillShipsMap(int[][] map, int cell) {
+    public void fillDefaultValuesToSHip() {
+        for (int i = 0; i < shipsMapFirstGamer.length; i++) {
+            for (int j = 0; j < shipsMapFirstGamer[0].length; j++) {
+                shipsMapFirstGamer[i][j] = emptyCellChar;
+            }
+        }
+        for (int i = 0; i < shotsMapFirstGamer.length; i++) {
+            for (int j = 0; j < shotsMapFirstGamer[0].length; j++) {
+                shotsMapFirstGamer[i][j] = emptyCellChar;
+            }
+        }
+        for (int i = 0; i < shipsMapSecondGamer.length; i++) {
+            for (int j = 0; j < shipsMapSecondGamer[0].length; j++) {
+                shipsMapSecondGamer[i][j] = emptyCellChar;
+            }
+        }
+        for (int i = 0; i < shotsMapSecondGamer.length; i++) {
+            for (int j = 0; j < shotsMapSecondGamer[0].length; j++) {
+                shotsMapSecondGamer[i][j] = emptyCellChar;
+            }
+
+        }
+    }
+
+
+    public void fillShipsMap(char[][] map, int cell) {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map.length; j++) {
                 if (10 * i + j == cell) {
-                    map[i][j] = 1;
+                    map[i][j] = shipCellChar;
                 }
             }
         }
     } //Fill map input ships
 
-    public int stringToInteger(String str) {
-        int letterToChar = 0;
-        int digitToChar = 0;
-        letterToChar = str.charAt(0) - 64;
-        digitToChar = str.charAt(1) - 49;
+    public int stringMarksForWritingMap(String str) {
+        int letterToChar = str.charAt(0) - 64;
+        int digitToChar = str.charAt(1) - 49;
         if (str.length() > 2) {
             digitToChar = 9;
         }
@@ -65,7 +88,8 @@ public class BattleShipMap extends Ships {
         return placementCell;
     }
 
-    public String gridToString(int[][] shipsMap) {
+    public String gridToString(char[][] shipsMap) {
+
         StringBuilder strb = new StringBuilder("   ");
         char letterOfMap = 'A';
 
@@ -142,10 +166,10 @@ public class BattleShipMap extends Ships {
         }
     } //add ships to int map
 
-    public boolean isWin(int[][] shipsMap) {
+    public boolean isWin(char[][] shipsMap) {
         for (int i = 0; i < shipsMap.length; i++) {
             for (int j = 0; j < shipsMap[0].length; j++) {
-                if (shipsMap[i][j] == 1) {
+                if (shipsMap[i][j] == shipCellChar) {
                     return false;
                 }
             }
@@ -153,24 +177,24 @@ public class BattleShipMap extends Ships {
         return true;
     } // check were all ships destroyed
 
-    public boolean isHitToShip(String shot, int[][] shipsMap, int[][] enemyShotsMap) {
+    public boolean isHitToShip(String shot, char[][] shipsMap, char[][] enemyShotsMap) {
 
         boolean isHit = false;
 
-        int placementCell = stringToInteger(shot);
+        int placementCell = stringMarksForWritingMap(shot);
 
         int row = placementCell / 10;
         int column = placementCell % 10;
 
-        if (shipsMap[row][column] == 1) {
+        if (shipsMap[row][column] == shipCellChar) {
             isHit = true;
-            shipsMap[row][column] = 7;
-            enemyShotsMap[row][column] = 7;
+            shipsMap[row][column] = shotShipCellChar;
+            enemyShotsMap[row][column] = shotShipCellChar;
         } else {
-            enemyShotsMap[row][column] = 6;
+            enemyShotsMap[row][column] = emptyShotCellChar;
         }
 
-        System.out.println(gridToString(enemyShotsMap));
+//        System.out.println(gridToString(enemyShotsMap));
         return isHit;
     }
 

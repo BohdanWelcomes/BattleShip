@@ -18,6 +18,7 @@ public class GameProcess extends BattleShipMap {
         gamer.setGamerName2(scanner.nextLine());
         System.out.println("It's nice to meet you, " + gamer.getGamerName2() + "!");
         System.out.println("The rules of the game you can read when the author provide it.");
+        fillDefaultValuesToSHip();
     }
 
     public void inputShipsPlacementForFirstGamer() {
@@ -67,6 +68,7 @@ public class GameProcess extends BattleShipMap {
 
         addShipsToStringArray(shipsLengthOfOne);
         addShipsForSecondGamer(shipsLengthOfOne);
+        banOnViewingLocation();
 
 //        String map = BattleShipMap.gridToString(BattleShipMap.getShipsMapSecondGamer());
 //        System.out.println(map);
@@ -80,6 +82,7 @@ public class GameProcess extends BattleShipMap {
             boolean firstGamerSHot = true;
 
             while (firstGamerSHot) {
+                System.out.println(gridToString(getShotsMapFirstGamer()));
                 System.out.print(gamer.getGamerName1() + " write in which cell you want to shoot ");
                 shot = scanner.next();
                 firstGamerSHot = isHitToShip(shot, getShipsMapSecondGamer(), getShotsMapFirstGamer());
@@ -94,6 +97,7 @@ public class GameProcess extends BattleShipMap {
             boolean secondGamerShot = true;
 
             while (secondGamerShot) {
+                System.out.println(gridToString(getShotsMapSecondGamer()));
                 System.out.print(gamer.getGamerName2() + " write in which cell you want to shoot ");
                 shot = scanner.next();
                 secondGamerShot = isHitToShip(shot, getShipsMapFirstGamer(), getShotsMapSecondGamer());
