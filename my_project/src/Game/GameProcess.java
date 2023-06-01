@@ -22,56 +22,57 @@ public class GameProcess extends BattleShipMap {
     }
 
     public void inputShipsPlacementForFirstGamer() {
-        System.out.println(gamer.getGamerName1() + " please indicate the location of the ships using a capital letter from A to J and a number from 1 to 10. " +
-                "An example of the placement of ships is indicated in the rulebook of the game.");
-        System.out.print("Mark the locations of the ship with a length of 4 cells: ");
+//        System.out.println(gamer.getGamerName1() + " please indicate the location of the ships using a capital letter from A to J and a number from 1 to 10. " +
+//                "An example of the placement of ships is indicated in the rulebook of the game.");
+//        System.out.print("Mark the locations of the ship with a length of 4 cells: ");
 
-        addShipsToStringArray(shipLengthOfFour);
-        addShipsForFirstGamer(shipLengthOfFour);
+//        addShipsToStringArray(shipLengthOfFourFirstGamer);
+        addShipsForFirstGamer(shipLengthOfFourFirstGamer);
 
-        System.out.print("Mark the locations of two ships with a length of 3 cells: ");
+//        System.out.print("Mark the locations of two ships with a length of 3 cells: ");
 
-        addShipsToStringArray(shipsLengthOfThree);
-        addShipsForFirstGamer(shipsLengthOfThree);
+//        addShipsToStringArray(shipsLengthOfThreeFirstGamer);
+        addShipsForFirstGamer(shipsLengthOfThreeFirstGamer);
 
-        System.out.print("Mark the locations of three ships with a length of 2 cells: ");
+//        System.out.print("Mark the locations of three ships with a length of 2 cells: ");
 
-        addShipsToStringArray(shipsLengthOfTwo);
-        addShipsForFirstGamer(shipsLengthOfTwo);
+//        addShipsToStringArray(shipsLengthOfTwoFirstGamer);
+        addShipsForFirstGamer(shipsLengthOfTwoFirstGamer);
 
-        System.out.print("Mark the locations of four ships with a length of 1 cell: ");
+//        System.out.print("Mark the locations of four ships with a length of 1 cell: ");
 
-        addShipsToStringArray(shipsLengthOfOne);
-        addShipsForFirstGamer(shipsLengthOfOne);
-        banOnViewingLocation();
+//        addShipsToStringArray(shipsLengthOfOneFirstGamer);
+        addShipsForFirstGamer(shipsLengthOfOneFirstGamer);
+//        banOnViewingLocation();
+        System.out.println(gridToString(getShipsMapFirstGamer()));
     }
 
     public void inputShipsPlacementForSecondGamer() {
-        System.out.println(gamer.getGamerName2() + " please indicate the location of the ships using a capital letter from A to J and a number from 1 to 10. " +
-                "An example of the placement of ships is indicated in the rulebook of the game.");
-        System.out.print("Mark the locations of the ship with a length of 4 cells: ");
+//        System.out.println(gamer.getGamerName2() + " please indicate the location of the ships using a capital letter from A to J and a number from 1 to 10. " +
+//                "An example of the placement of ships is indicated in the rulebook of the game.");
+//        System.out.print("Mark the locations of the ship with a length of 4 cells: ");
 
-        addShipsToStringArray(shipLengthOfFour);
-        addShipsForSecondGamer(shipLengthOfFour);
+//        addShipsToStringArray(shipLengthOfFourSecondGamer);
+        addShipsForSecondGamer(shipLengthOfFourSecondGamer);
 
-        System.out.print("Mark the locations of two ships with a length of 3 cells: ");
+//        System.out.print("Mark the locations of two ships with a length of 3 cells: ");
 
-        addShipsToStringArray(shipsLengthOfThree);
-        addShipsForSecondGamer(shipsLengthOfThree);
+//        addShipsToStringArray(shipsLengthOfThreeSecondGamer);
+        addShipsForSecondGamer(shipsLengthOfThreeSecondGamer);
 
-        System.out.print("Mark the locations of three ships with a length of 2 cells: ");
+//        System.out.print("Mark the locations of three ships with a length of 2 cells: ");
 
-        addShipsToStringArray(shipsLengthOfTwo);
-        addShipsForSecondGamer(shipsLengthOfTwo);
+//        addShipsToStringArray(shipsLengthOfTwoSecondGamer);
+        addShipsForSecondGamer(shipsLengthOfTwoSecondGamer);
 
-        System.out.print("Mark the locations of four ships with a length of 1 cell: ");
+//        System.out.print("Mark the locations of four ships with a length of 1 cell: ");
 
-        addShipsToStringArray(shipsLengthOfOne);
-        addShipsForSecondGamer(shipsLengthOfOne);
-        banOnViewingLocation();
+//        addShipsToStringArray(shipsLengthOfOneSecondGamer);
+        addShipsForSecondGamer(shipsLengthOfOneSecondGamer);
+//        banOnViewingLocation();
+        System.out.println(gridToString(getShipsMapSecondGamer()));
 
-//        String map = BattleShipMap.gridToString(BattleShipMap.getShipsMapSecondGamer());
-//        System.out.println(map);
+
     }
 
     public void battle() {
@@ -86,8 +87,13 @@ public class GameProcess extends BattleShipMap {
                 System.out.print(gamer.getGamerName1() + " write in which cell you want to shoot ");
                 shot = scanner.next();
                 firstGamerSHot = isHitToShip(shot, getShipsMapSecondGamer(), getShotsMapFirstGamer());
-
                 System.out.println(chantWhenHitShip(firstGamerSHot));
+
+                boolean isDestroyed = isAHitOnDestroyedShipFirstGamer(getShotsMapFirstGamer(), shot);
+
+                if (!isDestroyed) {
+                    System.out.println("Ship scuttled!");
+                }
 
                 if (isWin(getShipsMapFirstGamer())) {
                     firstGamerSHot = false;
@@ -102,8 +108,7 @@ public class GameProcess extends BattleShipMap {
                 shot = scanner.next();
                 secondGamerShot = isHitToShip(shot, getShipsMapFirstGamer(), getShotsMapSecondGamer());
                 System.out.println(chantWhenHitShip(secondGamerShot));
-
-
+                //               isAHitOnDestroyedShipFirstGamer(getShotsMapFirstGamer(), shot);
                 if (isWin(getShipsMapFirstGamer())) {
                     secondGamerShot = false;
                 }

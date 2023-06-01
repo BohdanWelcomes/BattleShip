@@ -1,6 +1,6 @@
 package Game;
 
-import java.util.Scanner;
+import java.util.*;
 
 // 0 - empty, 1 - ship, 6 - missed shot, 7 - hit shot
 
@@ -65,6 +65,83 @@ public class BattleShipMap extends Ships {
             }
 
         }
+    }
+
+
+    public boolean isAHitOnDestroyedShipFirstGamer(char[][] map, String shot) {
+
+        String[][] shipPlacement = {shipLengthOfFourSecondGamer, shipsLengthOfThreeSecondGamer, shipsLengthOfTwoSecondGamer, shipsLengthOfOneSecondGamer};
+
+        List<Coordinates> positions = new ArrayList<>();
+        boolean isDestroyed = true;
+        List<String> ship = new ArrayList<>();
+
+        for (int i = 0; i < shipPlacement.length; i++) {
+            for (int j = 0; j < shipPlacement[i].length; j++) {
+                if (shot.equals(shipPlacement[i][j])) {
+                    Collections.addAll(ship, shipPlacement[i]); //👌👌👌
+                }
+            }
+        }
+
+        for (String ships : ship) {
+            int placementCell = stringMarksForWritingMap(ships);
+            positions.add(new Coordinates(placementCell / 10, placementCell % 10));
+        }
+
+
+        for (Coordinates posit : positions) {
+            int row = posit.getX();
+            int col = posit.getY();
+            if (map[row][col] != shotShipCellChar) {
+                isDestroyed = false;
+                break;
+            }
+
+        } //Check is ship destroyed
+
+//        System.out.println(isDestroyed);
+        if (isDestroyed) {
+            for (Coordinates posit : positions) {
+                int row = posit.getX();
+                int col = posit.getY();
+
+                if (row > 0 && col > 0) { // хуй его что тут ono tupo nie rabotaet
+                    map[row][col - 1] = emptyShotCellChar;
+                    map[row - 1][col] = emptyShotCellChar;
+                    map[row - 1][col - 1] = emptyShotCellChar;
+                }
+                if (row < map.length - 1 && col > 0) {
+                    map[row][col - 1] = emptyShotCellChar;
+                    map[row + 1][col] = emptyShotCellChar;
+                    map[row + 1][col - 1] = emptyShotCellChar;
+                }
+                if (row > 0 && col < map[0].length - 1) {
+                    map[row - 1][col] = emptyShotCellChar;
+                    map[row][col + 1] = emptyShotCellChar;
+                    map[row - 1][col + 1] = emptyShotCellChar;
+                }
+                if (row < map.length - 1 && col < map.length - 1) {
+                    map[row][col + 1] = emptyShotCellChar;
+                    map[row + 1][col] = emptyShotCellChar;
+                    map[row + 1][col + 1] = emptyShotCellChar;
+                    System.out.println("Ship scuttled!");
+                }
+
+                for (Coordinates coord : positions) {
+                    row = coord.getX();
+                    col = coord.getY();
+                    map[row][col] = shotShipCellChar;
+                }
+
+            }
+        }
+
+        if (isDestroyed) {
+            System.out.println("Ship scuttled!");
+        }
+        //Condition for destroyed ship
+        return isDestroyed;
     }
 
 
@@ -159,12 +236,12 @@ public class BattleShipMap extends Ships {
         }
     } //add '1' to map, where 1 is ship placement
 
-    public void addShipsToStringArray(String[] sizeShipArray) {
-        Scanner scanner = new Scanner(System.in);
-        for (int i = 0; i < sizeShipArray.length; i++) {
-            sizeShipArray[i] = scanner.next();
-        }
-    } //add ships to int map
+//    public void addShipsToStringArray(String[] sizeShipArray) {
+//        Scanner scanner = new Scanner(System.in);
+//        for (int i = 0; i < sizeShipArray.length; i++) {
+//            sizeShipArray[i] = scanner.next();
+//        }
+//    } //add ships to int map
 
     public boolean isWin(char[][] shipsMap) {
         for (int i = 0; i < shipsMap.length; i++) {
