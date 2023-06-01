@@ -8,25 +8,21 @@ import java.util.List;
 
 class Ships {
 
-    String[] shipLengthOfFourFirstGamer = {"A1", "A2", "A3", "A4"};
-    String[] shipsLengthOfThreeFirstGamer = {"E3", "F3", "G3", "B8", "C8", "D8"};
-    String[] shipsLengthOfTwoFirstGamer = {"F7", "F8",  "J3", "J4",  "C1", "C2"};
-    String[] shipsLengthOfOneFirstGamer = {"H10", "J9", "H6", "I1"};
 
-    String[] shipLengthOfFourSecondGamer = {"F2", "F3", "F4", "F5"};
-    String[] shipsLengthOfThreeSecondGamer = { "A4", "A5", "A6", "J4", "J5", "J6"};
-    String[] shipsLengthOfTwoSecondGamer = {"C4" ,"C5", "D10", "E10",  "H3", "H4"};
-    String[] shipsLengthOfOneSecondGamer = { "A1","A10","J1","J10" };
+    String[][] shipPlacementFirstGamer = {{"1", "2", "3", "4"},
+            {"1", "2", "3"}, {"1", "2", "3"},
+            {"1", "2"}, {"1", "2"}, {"1", "2"},
+            {"1"}, {"1"}, {"1"}, {"1"}};
+
+
+    String[][] shipPlacementSecondGamer = {{"1", "2", "3", "4"},
+            {"1", "2", "3"}, {"1", "2", "3"},
+            {"1", "2"}, {"1", "2"}, {"1", "2"},
+            {"1"}, {"1"}, {"1"}, {"1"}};
 
     char emptyCellChar = '.';
     char shipCellChar = '☐';
     char emptyShotCellChar = '×';
     char shotShipCellChar = '☒';
-
-    String[][] str = new String[8][];
-
-    char[][] charShipMapPresentFirstGamer = new char[10][10];
-    char[][] charShipMapPresentSecondGamer = new char[10][10];
-
 
 }

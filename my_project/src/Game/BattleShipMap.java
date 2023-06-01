@@ -67,19 +67,17 @@ public class BattleShipMap extends Ships {
         }
     }
 
-
     public boolean isAHitOnDestroyedShipFirstGamer(char[][] map, String shot) {
 
-        String[][] shipPlacement = {shipLengthOfFourSecondGamer, shipsLengthOfThreeSecondGamer, shipsLengthOfTwoSecondGamer, shipsLengthOfOneSecondGamer};
 
         List<Coordinates> positions = new ArrayList<>();
         boolean isDestroyed = true;
         List<String> ship = new ArrayList<>();
 
-        for (int i = 0; i < shipPlacement.length; i++) {
-            for (int j = 0; j < shipPlacement[i].length; j++) {
-                if (shot.equals(shipPlacement[i][j])) {
-                    Collections.addAll(ship, shipPlacement[i]); //👌👌👌
+        for (int i = 0; i < shipPlacementSecondGamer.length; i++) {
+            for (int j = 0; j < shipPlacementSecondGamer[i].length; j++) {
+                if (shot.equals(shipPlacementSecondGamer[i][j])) {
+                    Collections.addAll(ship, shipPlacementSecondGamer[i]); //👌👌👌
                 }
             }
         }
@@ -88,7 +86,6 @@ public class BattleShipMap extends Ships {
             int placementCell = stringMarksForWritingMap(ships);
             positions.add(new Coordinates(placementCell / 10, placementCell % 10));
         }
-
 
         for (Coordinates posit : positions) {
             int row = posit.getX();
@@ -100,7 +97,6 @@ public class BattleShipMap extends Ships {
 
         } //Check is ship destroyed
 
-//        System.out.println(isDestroyed);
         if (isDestroyed) {
             for (Coordinates posit : positions) {
                 int row = posit.getX();
@@ -125,7 +121,6 @@ public class BattleShipMap extends Ships {
                     map[row][col + 1] = emptyShotCellChar;
                     map[row + 1][col] = emptyShotCellChar;
                     map[row + 1][col + 1] = emptyShotCellChar;
-                    System.out.println("Ship scuttled!");
                 }
 
                 for (Coordinates coord : positions) {
@@ -135,15 +130,48 @@ public class BattleShipMap extends Ships {
                 }
 
             }
-        }
-
-        if (isDestroyed) {
-            System.out.println("Ship scuttled!");
-        }
-        //Condition for destroyed ship
+        }   //Condition for destroyed ship
         return isDestroyed;
     }
 
+    public boolean isClearInputCell(String[] cellPlacement) {
+
+        if (cellPlacement == null) {
+            throw new NullPointerException();
+        }
+
+        if (cellPlacement.length <= 1 || cellPlacement.length >= 4) {
+            return false;
+        }
+
+        boolean isTrue = true;
+
+        for (int i = 0; i < cellPlacement.length; i++) {
+
+            if (cellPlacement[i].length() <= 1 || cellPlacement[i].length() >= 4) {
+                return false;
+            }
+            int letterToChar = cellPlacement[i].charAt(0) - 64;
+            int digitToChar = cellPlacement[i].charAt(1) - 49;
+
+            if (letterToChar <= 0 || letterToChar >= 11 || digitToChar == -1) {
+                return false;
+            }
+
+            if (cellPlacement[i].length() == 3 && cellPlacement[i].charAt(2) == 48) {
+                digitToChar = 9;
+            } else {
+                return false;
+            }
+            int placementCell = (letterToChar + (10 * digitToChar)) - 1;
+            isTrue = placementCell >= 0 && placementCell <= 99;
+
+            if (!isTrue) {
+                return false;
+            }
+        }
+        return isTrue;
+    }
 
     public void fillShipsMap(char[][] map, int cell) {
         for (int i = 0; i < map.length; i++) {
@@ -206,7 +234,7 @@ public class BattleShipMap extends Ships {
         return strb.toString();
     } //from array to String
 
-    public void addShipsForFirstGamer(String[] ship) {
+    public void addShipToMap(String[] ship, char[][] map) {
         for (int i = 0; i < ship.length; i++) {
             String cell = ship[i];
             int letterToChar = cell.charAt(0) - 64;
@@ -215,10 +243,19 @@ public class BattleShipMap extends Ships {
                 digitToChar = 9;
             }
             int placementCell = (letterToChar + (10 * digitToChar)) - 1;
-            fillShipsMap(getShipsMapFirstGamer(), placementCell);
+            fillShipsMap(map, placementCell);
 
         }
     } //add '1' to map, where 1 is ship placement
+
+    public void isClearShot(String shot) {
+        Scanner scanner = new Scanner(System.in);
+//        if (!isClearInputCell(shot)) {
+//            System.out.println("Please specify correct cell place");
+//            shot = scanner.next();
+//            isClearInputCell(shot);
+        }
+
 
     public void addShipsForSecondGamer(String[] ship) {
         int letterToChar = 0;
@@ -236,12 +273,16 @@ public class BattleShipMap extends Ships {
         }
     } //add '1' to map, where 1 is ship placement
 
-//    public void addShipsToStringArray(String[] sizeShipArray) {
-//        Scanner scanner = new Scanner(System.in);
-//        for (int i = 0; i < sizeShipArray.length; i++) {
-//            sizeShipArray[i] = scanner.next();
-//        }
-//    } //add ships to int map
+    public void addShipsToStringArray(String[] sizeShipArray) {
+        Scanner scanner = new Scanner(System.in);
+        for (int i = 0; i < sizeShipArray.length; i++) {
+            sizeShipArray[i] = scanner.next();
+//            if (!isClearInputCell(sizeShipArray[i])) {
+//                System.out.println("Please specify correct cell place");
+//                addShipsForSecondGamer(sizeShipArray);
+//            }
+        }
+    } //add ships to int map
 
     public boolean isWin(char[][] shipsMap) {
         for (int i = 0; i < shipsMap.length; i++) {
