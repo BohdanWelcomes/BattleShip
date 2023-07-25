@@ -12,19 +12,19 @@ public class BattleShipMap extends Ships {
     private static char[][] shipsMapSecondGamer = new char[10][10];
     private static char[][] shotsMapSecondGamer = new char[10][10];
 
-    public char[][] getShipsMapFirstGamer() {
+    public static char[][] getShipsMapFirstGamer() {
         return shipsMapFirstGamer;
     }
 
-    public char[][] getShotsMapFirstGamer() {
+    public static char[][] getShotsMapFirstGamer() {
         return shotsMapFirstGamer;
     }
 
-    public char[][] getShipsMapSecondGamer() {
+    public static char[][] getShipsMapSecondGamer() {
         return shipsMapSecondGamer;
     }
 
-    public char[][] getShotsMapSecondGamer() {
+    public static char[][] getShotsMapSecondGamer() {
         return shotsMapSecondGamer;
     }
 
@@ -183,7 +183,7 @@ public class BattleShipMap extends Ships {
         }
     } //Fill map input ships
 
-    public int stringMarksForWritingMap(String str) {
+    public static int stringMarksForWritingMap(String str) {
         int letterToChar = str.charAt(0) - 64;
         int digitToChar = str.charAt(1) - 49;
         if (str.length() > 2) {
@@ -284,7 +284,7 @@ public class BattleShipMap extends Ships {
         }
     } //add ships to int map
 
-    public boolean isWin(char[][] shipsMap) {
+    public static boolean isWin(char[][] shipsMap) {
         for (int i = 0; i < shipsMap.length; i++) {
             for (int j = 0; j < shipsMap[0].length; j++) {
                 if (shipsMap[i][j] == shipCellChar) {
@@ -295,7 +295,7 @@ public class BattleShipMap extends Ships {
         return true;
     } // check were all ships destroyed
 
-    public boolean isHitToShip(String shot, char[][] shipsMap, char[][] enemyShotsMap) {
+    public static boolean isHitToShip(String shot, char[][] shipsMap, char[][] enemyShotsMap) {
 
         boolean isHit = false;
 

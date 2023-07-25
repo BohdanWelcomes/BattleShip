@@ -7,22 +7,23 @@ import java.util.List;
 //Tests: A6 B6 C6 D6 ; F1 F2 F3  F7 F8 F9; D1 D2  I2 I3  A2 B2; A8 B10 G5 I8 (Second gamer test)
 
 class Ships {
+    
+    String[][] shipPlacementFirstGamer = randomShipPlacement();
 
-
-    String[][] shipPlacementFirstGamer = {{"1", "2", "3", "4"},
-            {"1", "2", "3"}, {"1", "2", "3"},
-            {"1", "2"}, {"1", "2"}, {"1", "2"},
-            {"1"}, {"1"}, {"1"}, {"1"}};
-
-
-    String[][] shipPlacementSecondGamer = {{"1", "2", "3", "4"},
-            {"1", "2", "3"}, {"1", "2", "3"},
-            {"1", "2"}, {"1", "2"}, {"1", "2"},
-            {"1"}, {"1"}, {"1"}, {"1"}};
+    String[][] shipPlacementSecondGamer = randomShipPlacement();
+    
+    private String[][] randomShipPlacement() {
+        String[][] shipPlacement = {{"1", "2", "3", "4"},
+                {"1", "2", "3"}, {"1", "2", "3"},
+                {"1", "2"}, {"1", "2"}, {"1", "2"},
+                {"1"}, {"1"}, {"1"}, {"1"}};
+        // TODO: 25.07.2023 Napisać metodę, która losowo iniciuje rozmieszczenie statków w tablicy
+        return shipPlacement;
+    }
 
     char emptyCellChar = '.';
-    char shipCellChar = '☐';
-    char emptyShotCellChar = '×';
-    char shotShipCellChar = '☒';
+    static char shipCellChar = '☐';
+    static char emptyShotCellChar = '×';
+    static char shotShipCellChar = '☒';
 
 }
